@@ -61,6 +61,16 @@ function renderGrid() {  // Per ogni elemento della griglia, creo un <li> in pag
     }    
 }
 
+function renderThisGrid() {
+    gameContainer.innerHTML = ``;
+    for (let i = 0; i < rows; i++) {
+        for (let j = 0; j < cols; j++) {
+            if (grid[i][j] == 0) gameContainer.innerHTML += `<li class='dead'></li>`; // aggiungo dead or alive class
+            else gameContainer.innerHTML += `<li class='alive'></li>`;
+        } 
+    }
+}
+
 function countNeighbors(x, y) {   // Conto i vicini vivi
             
             let sum = 0;
@@ -158,7 +168,9 @@ function nextGen() {      // Si genera la Generazione successiva
     console.log('grid PRIMA di structuredClone',grid);                                       // £
     grid = structuredClone(nextGrid);
     // la Nuova griglia di ora sarà la Vecchia griglia per la Generazione successiva                                                        
-    console.log('grid DOPO structuredClone', grid);                                          // £ 
+    console.log('grid DOPO structuredClone', grid);                                          // £
+    renderThisGrid(nextGrid);
+    //Aggiorno nel DOM la successiva generazione
 }  
 /*
 Nella funzione nextGen, per fetchare escludendo fin da subito i bordi (che non hanno tutti i vicini,
