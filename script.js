@@ -18,6 +18,8 @@ in console un messaggio con qualcosa, utile forse a decifrare che caspio sta suc
 
 // Recupero elementi dal DOM
 const gameContainer = document.getElementById('gameContainer');
+const btnGo = document.getElementById('go');
+const btnStop = document.getElementById('stop');
 
 // Preparazione variabili note
 let grid = [];          // riempita di array, rappresenterà per i calcoli gli stati delle celle della griglia
@@ -25,7 +27,7 @@ let nextGrid = [];
 const max = 2;          // serve per far oscillare il numero random tra 0 e max(escluso)
 const rows = 20;
 const cols = 20;
-
+let flux;
 
 // Funzioni
 
@@ -179,7 +181,8 @@ console.log(grid);  // qui mostra già un'altra griglia
 
 //renderGrid(grid);  messa poi dentro a setupRandom
 
-nextGen();  
+//nextGen();  
+
 /* Non solo pare prendere in esame la griglia giusta, ma la somma dei vicini è sbagliata.
 Inoltre, dopo qualche modifica da cui non riesco a far ritorno, non modifica nemmeno la nextGrid,
 ristampandola uguale a grid (quella sbagliata). */
@@ -202,3 +205,14 @@ console.log('nextGrid alla fine:', nextGrid);
 // fuori dei cicli for, quindi nemmeno fuori dalla funzione.
 
 
+// Eventi Dinamici di flusso
+
+//GO
+btnGo.addEventListener('click',function() {
+    flux = setInterval(nextGen, 333);
+});
+
+//STOP
+btnStop.addEventListener('click', function() {
+    clearInterval(flux);
+})
