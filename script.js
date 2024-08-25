@@ -23,12 +23,13 @@ const btnStop = document.getElementById('stop');
 
 // Preparazione variabili note
 let grid = [];          // riempita di array, rappresenterà per i calcoli gli stati delle celle della griglia
-let nextGrid = [];     
+let nextGrid = [];      
 const max = 2;          // serve per far oscillare il numero random tra 0 e max(escluso)
 const rows = 20;        // was 20
 const cols = 20;        // was 20
+let arrRes = 20;        // chiamata risoluzione, indica il numero di elementi in ogni array 
 let flux;
-let res = 20;
+
 
 // Funzioni
 
@@ -70,7 +71,7 @@ function renderThisGrid() {
             else gameContainerNodes += `<li class='alive'></li>`;
         }        
     }
-    gameContainer.innerHTML = gameContainerNodes;
+    gameContainer.innerHTML = gameContainerNodes;                                // modifico il DOM solo una volta
 }
 
 function countNeighbors(x, y) {   // Conto i vicini vivi
@@ -81,10 +82,12 @@ function countNeighbors(x, y) {   // Conto i vicini vivi
             for (let i = -1; i < 2; i++) {
                 for (let j = -1; j < 2; j++) {
                     if(!(i == 0 && j == 0)) {                         // escludo l'unico vicino che non voglio contare, ovvero se stesso
-                        if (grid[(x + i + res) % res][(y + j + res) % res] == 1) sum++;               
+                        if (grid[(x + i + arrRes) % arrRes][(y + j + arrRes) % arrRes] == 1) sum++;
+                        // con la formula con il modulo, riesco a wrappare i confini l'uno con l'altro             
                     }
                 }
             }
+            return sum;
 
             //if (grid[x-1][y-1] == 1 ) sum = sum + 1;
             //console.log('step1:', sum,'x' ,x, x-1,'y', y, y-1);      // £
@@ -116,9 +119,7 @@ function countNeighbors(x, y) {   // Conto i vicini vivi
 
             //if (grid[x+1][y+1] == 1 ) sum = sum + 1;
             //console.log('step8:', sum,'x' ,x, x+1,'y', y, y+1);      // £
-            //console.log('cosa legge nella cella:', grid[x+1][y+1]);  // £
-
-            return sum;
+            //console.log('cosa legge nella cella:', grid[x+1][y+1]);  // £            
 }
 
 function applayRules(sum, i, j) {   // Regole del gioco
@@ -191,40 +192,12 @@ raggiungere l'ULTIMA colonna o riga.
 */
 
 
-// Flusso di Esecuzione
 
-//console.log('ciao per prima cosa');
-//console.log('dopo ciao', grid);
+// Flusso di Esecuzione
 
 setupRandom();   // dentro a setupRandom, la griglia effettivamente viene renderizzata giusta
 
 console.log('execute setupRandom');
-//console.log(grid);  // qui mostra già un'altra griglia
-
-//renderGrid(grid);  messa poi dentro a setupRandom
-
-//nextGen();  
-
-/* Non solo pare prendere in esame la griglia giusta, ma la somma dei vicini è sbagliata.
-Inoltre, dopo qualche modifica da cui non riesco a far ritorno, non modifica nemmeno la nextGrid,
-ristampandola uguale a grid (quella sbagliata). */
-
-//console.log('execute nextGen');
-//console.log('old grid alla fine:', grid);
-//console.log('nextGrid alla fine:', nextGrid);
-
-
-// La cosa che fa più ridere, è che in tutte le griglie, giuste o sbagliate, all'inizio o
-// alla fine, dentro o fuori ad un ciclo , i bordi rimangono SEMPRE uguali.
-
-
-// I ragionamenti non mi sembrano tanto deviati, il problema starà di sicuro nel creare e richiamare funzioni,
-// e nei loro parametri, poi successivamente argomenti. (credo)
-
-
-// Problemmi principali: la sommatoria dei vicini non prende in esame la griglia giusta, però funziona di per se.
-// Gli stati vengono cambiati correttamente all'interno della funzione nextGen, ma non vengono riportati al di 
-// fuori dei cicli for, quindi nemmeno fuori dalla funzione.
 
 
 // Eventi Dinamici di flusso
