@@ -22,8 +22,8 @@ ul {
     background-color: black;
     
     li {                           /* The Cell */
-        width: 30px;
-        height: 30px;
+        width: 15px;
+        height: 15px;
         /* border: 1px solid grey; */
     }
 }
@@ -33,7 +33,7 @@ ul {
 
 .axis {                               
     position: relative;
-    width: 600px;
+    width: 1200px;             
     margin: 0 auto;
 }
 .x-axis, .y-axis {

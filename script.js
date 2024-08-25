@@ -25,9 +25,10 @@ const btnStop = document.getElementById('stop');
 let grid = [];          // riempita di array, rappresenterà per i calcoli gli stati delle celle della griglia
 let nextGrid = [];      
 const max = 2;          // serve per far oscillare il numero random tra 0 e max(escluso)
-const rows = 20;        // was 20
-const cols = 20;        // was 20
-let arrRes = 20;        // chiamata risoluzione, indica il numero di elementi in ogni array 
+const rows = 42;        // was 20
+const cols = 80;        // was 20
+let arrRes = cols;      // chiamata risoluzione, indica il numero di elementi in ogni array
+let gridRes = rows;     // chiamata risoluzione, indica il numero di array che compongono la griglia
 let flux;
 
 
@@ -51,7 +52,9 @@ function setupRandom() {                               // Riempio griglia con ze
         grid[i] = row;
         //console.log('valori', row);   // £
     }
-    renderGrid();    
+    renderGrid();
+    console.log('griglia con:', rows,' righe, e:', cols, ' colonne');
+    console.log(grid);   
 }
 
 function renderGrid() {  // Per ogni elemento della griglia, creo un <li> in pagina, con una classe per lo stato
@@ -82,7 +85,7 @@ function countNeighbors(x, y) {   // Conto i vicini vivi
             for (let i = -1; i < 2; i++) {
                 for (let j = -1; j < 2; j++) {
                     if(!(i == 0 && j == 0)) {                         // escludo l'unico vicino che non voglio contare, ovvero se stesso
-                        if (grid[(x + i + arrRes) % arrRes][(y + j + arrRes) % arrRes] == 1) sum++;
+                        if (grid[(x + i + gridRes) % gridRes][(y + j + arrRes) % arrRes] == 1) sum++;
                         // con la formula con il modulo, riesco a wrappare i confini l'uno con l'altro             
                     }
                 }
