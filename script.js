@@ -28,10 +28,11 @@ const max = 2;          // serve per far oscillare il numero random tra 0 e max(
 const rows = 20;        // was 20
 const cols = 20;        // was 20
 let flux;
+let res = 20;
 
 // Funzioni
 
-function reset() {   // Riempio di zeri la grid, non ancora utilizzata
+function reset() {                                     // Riempio di zeri la grid, non ancora utilizzata
     for (i = 0; i < rows; i++) {
         for (j = 0; j < cols; j++) {
             grid[i][j] = 0;
@@ -39,7 +40,7 @@ function reset() {   // Riempio di zeri la grid, non ancora utilizzata
     }
 }
 
-function setupRandom() {  // Riempio griglia con zeri e uni casuali
+function setupRandom() {                               // Riempio griglia con zeri e uni casuali
     for (let i = 0; i < rows; i++) {
         //console.log('row', i);        // £
         let row = [];
@@ -67,8 +68,7 @@ function renderThisGrid() {
         for (let j = 0; j < cols; j++) {
             if (grid[i][j] == 0) gameContainerNodes += `<li class='dead'></li>`; // aggiungo dead or alive class
             else gameContainerNodes += `<li class='alive'></li>`;
-        }
-        
+        }        
     }
     gameContainer.innerHTML = gameContainerNodes;
 }
@@ -79,10 +79,9 @@ function countNeighbors(x, y) {   // Conto i vicini vivi
             // Da Cambiare con 2 cicli for tra i-1 i+1 , tranne il caso i=0 && j=0
 
             for (let i = -1; i < 2; i++) {
-                for (let j = -1; i < 2; j++) {
-                    if(!(i == 0 && j == 0)) {
-                        if (grid[x+i][y+j] == 1) sum++;
-                        console.log('ciao', x, 'x', i, 'i', y, 'y', j, 'j');
+                for (let j = -1; j < 2; j++) {
+                    if(!(i == 0 && j == 0)) {                         // escludo l'unico vicino che non voglio contare, ovvero se stesso
+                        if (grid[(x + i + res) % res][(y + j + res) % res] == 1) sum++;               
                     }
                 }
             }
@@ -166,8 +165,8 @@ function nextGen() {      // Si genera la Generazione successiva
     //console.log('ciao dentro a nextGen prima di cicli');  // £
     //console.log(grid);                                    // £
 
-    for (let i = 1; i < (rows - 1); i++) {
-        for( let j = 1; j < (cols - 1); j++) {
+    for (let i = 0; i < rows; i++) {
+        for( let j = 0; j < cols; j++) {
             sum = countNeighbors(i, j);
             //console.log('contenuto:', grid[i][j], 'riga:', i, 'colonna:', j, 'count:', sum); // £
             //console.log(nextGrid[i][j], ':cella nextGrid prima rules');                      // £
