@@ -25,8 +25,8 @@ const btnStop = document.getElementById('stop');
 let grid = [];          // riempita di array, rappresenterà per i calcoli gli stati delle celle della griglia
 let nextGrid = [];     
 const max = 2;          // serve per far oscillare il numero random tra 0 e max(escluso)
-const rows = 20;
-const cols = 20;
+const rows = 20;        // was 20
+const cols = 20;        // was 20
 let flux;
 
 // Funzioni
@@ -41,13 +41,13 @@ function reset() {   // Riempio di zeri la grid, non ancora utilizzata
 
 function setupRandom() {  // Riempio griglia con zeri e uni casuali
     for (let i = 0; i < rows; i++) {
-        console.log('row', i);        // £
+        //console.log('row', i);        // £
         let row = [];
         for (let j = 0; j < cols; j++) {
             row[j] = Math.floor(Math.random() * max);  // assegno un numero tra 0 e 1, arrotondato
         }
         grid[i] = row;
-        console.log('valori', row);   // £
+        //console.log('valori', row);   // £
     }
     renderGrid();    
 }
@@ -62,50 +62,62 @@ function renderGrid() {  // Per ogni elemento della griglia, creo un <li> in pag
 }
 
 function renderThisGrid() {
-    gameContainer.innerHTML = ``;
+    let gameContainerNodes = '';
     for (let i = 0; i < rows; i++) {
         for (let j = 0; j < cols; j++) {
-            if (grid[i][j] == 0) gameContainer.innerHTML += `<li class='dead'></li>`; // aggiungo dead or alive class
-            else gameContainer.innerHTML += `<li class='alive'></li>`;
-        } 
+            if (grid[i][j] == 0) gameContainerNodes += `<li class='dead'></li>`; // aggiungo dead or alive class
+            else gameContainerNodes += `<li class='alive'></li>`;
+        }
+        
     }
+    gameContainer.innerHTML = gameContainerNodes;
 }
 
 function countNeighbors(x, y) {   // Conto i vicini vivi
             
             let sum = 0;
+            // Da Cambiare con 2 cicli for tra i-1 i+1 , tranne il caso i=0 && j=0
 
-            if (grid[x-1][y-1] == 1 ) sum = sum + 1;
-            console.log('step1:', sum,'x' ,x, x-1,'y', y, y-1);      // £
-            console.log('cosa legge nella cella:', grid[x-1][y-1]);  // £
+            for (let i = -1; i < 2; i++) {
+                for (let j = -1; i < 2; j++) {
+                    if(!(i == 0 && j == 0)) {
+                        if (grid[x+i][y+j] == 1) sum++;
+                        console.log('ciao', x, 'x', i, 'i', y, 'y', j, 'j');
+                    }
+                }
+            }
 
-            if (grid[x-1][y] == 1 ) sum = sum + 1;
-            console.log('step2:', sum,'x' ,x, x-1,'y', y, y);        // £
-            console.log('cosa legge nella cella:', grid[x-1][y]);    // £
+            //if (grid[x-1][y-1] == 1 ) sum = sum + 1;
+            //console.log('step1:', sum,'x' ,x, x-1,'y', y, y-1);      // £
+            //console.log('cosa legge nella cella:', grid[x-1][y-1]);  // £
 
-            if (grid[x-1][y+1] == 1 ) sum = sum + 1;
-            console.log('step3:', sum,'x' ,x, x-1,'y', y, y+1);      // £
-            console.log('cosa legge nella cella:', grid[x-1][y+1]);  // £
+            //if (grid[x-1][y] == 1 ) sum = sum + 1;
+            //console.log('step2:', sum,'x' ,x, x-1,'y', y, y);        // £
+            //console.log('cosa legge nella cella:', grid[x-1][y]);    // £
 
-            if (grid[x][y-1] == 1 ) sum = sum + 1;
-            console.log('step4:', sum,'x' ,x, x,'y', y, y-1);        // £
-            console.log('cosa legge nella cella:', grid[x][y-1]);    // £
+            //if (grid[x-1][y+1] == 1 ) sum = sum + 1;
+            //console.log('step3:', sum,'x' ,x, x-1,'y', y, y+1);      // £
+            //console.log('cosa legge nella cella:', grid[x-1][y+1]);  // £
 
-            if (grid[x][y+1] == 1 ) sum = sum + 1;
-            console.log('step5:', sum,'x' ,x, x,'y', y, y+1);        // £
-            console.log('cosa legge nella cella:', grid[x][y+1]);    // £
+            //if (grid[x][y-1] == 1 ) sum = sum + 1;
+            //console.log('step4:', sum,'x' ,x, x,'y', y, y-1);        // £
+            //console.log('cosa legge nella cella:', grid[x][y-1]);    // £
 
-            if (grid[x+1][y-1] == 1 ) sum = sum + 1;
-            console.log('step6:', sum,'x' ,x, x+1,'y', y, y-1);      // £
-            console.log('cosa legge nella cella:', grid[x+1][y-1]);  // £
+            //if (grid[x][y+1] == 1 ) sum = sum + 1;
+            //console.log('step5:', sum,'x' ,x, x,'y', y, y+1);        // £
+            //console.log('cosa legge nella cella:', grid[x][y+1]);    // £
+
+            //if (grid[x+1][y-1] == 1 ) sum = sum + 1;
+            //console.log('step6:', sum,'x' ,x, x+1,'y', y, y-1);      // £
+            //console.log('cosa legge nella cella:', grid[x+1][y-1]);  // £
             
-            if (grid[x+1][y] == 1 ) sum = sum + 1;
-            console.log('step7:', sum,'x' ,x, x+1,'y', y, y);        // £
-            console.log('cosa legge nella cella:', grid[x+1][y]);    // £
+            //if (grid[x+1][y] == 1 ) sum = sum + 1;
+            //console.log('step7:', sum,'x' ,x, x+1,'y', y, y);        // £
+            //console.log('cosa legge nella cella:', grid[x+1][y]);    // £
 
-            if (grid[x+1][y+1] == 1 ) sum = sum + 1;
-            console.log('step8:', sum,'x' ,x, x+1,'y', y, y+1);      // £
-            console.log('cosa legge nella cella:', grid[x+1][y+1]);  // £
+            //if (grid[x+1][y+1] == 1 ) sum = sum + 1;
+            //console.log('step8:', sum,'x' ,x, x+1,'y', y, y+1);      // £
+            //console.log('cosa legge nella cella:', grid[x+1][y+1]);  // £
 
             return sum;
 }
@@ -130,8 +142,7 @@ function godzilla(sum, i, j) {     // Regole di gioco, scritte in altra maniera.
 function copyOldGrid (grid, nextGrid) {
     console.log(grid);
     for (let i = 0; i < rows; i++) {
-        for(let j = 0; j < cols; i++) {
-            
+        for(let j = 0; j < cols; i++) {            
             nextGrid.push(grid[i][j]);
         }
     }
@@ -152,23 +163,23 @@ function nextGen() {      // Si genera la Generazione successiva
     nextGrid = structuredClone(grid);              // La successiva griglia diventa uguale a quella attuale
     //nextGrid = copyOldGrid(grid, nextGrid);      // La successiva griglia diventa uguale a quella attuale
     
-    console.log('ciao dentro a nextGen prima di cicli');  // £
-    console.log(grid);                                    // £
+    //console.log('ciao dentro a nextGen prima di cicli');  // £
+    //console.log(grid);                                    // £
 
     for (let i = 1; i < (rows - 1); i++) {
         for( let j = 1; j < (cols - 1); j++) {
             sum = countNeighbors(i, j);
-            console.log('contenuto:', grid[i][j], 'riga:', i, 'colonna:', j, 'count:', sum); // £
-            console.log(nextGrid[i][j], ':cella nextGrid prima rules');                      // £
+            //console.log('contenuto:', grid[i][j], 'riga:', i, 'colonna:', j, 'count:', sum); // £
+            //console.log(nextGrid[i][j], ':cella nextGrid prima rules');                      // £
             nextGrid[i][j] = godzilla(sum, i, j);
-            console.log(nextGrid[i][j], ':cella nextGrid dopo rules');                       // £          
+            //console.log(nextGrid[i][j], ':cella nextGrid dopo rules');                       // £          
         } 
     }
-    console.log('griglia nuova finiti i cicli ma prima di return', nextGrid);                // £
-    console.log('grid PRIMA di structuredClone',grid);                                       // £
+    //console.log('griglia nuova finiti i cicli ma prima di return', nextGrid);                // £
+    //console.log('grid PRIMA di structuredClone',grid);                                       // £
     grid = structuredClone(nextGrid);
     // la Nuova griglia di ora sarà la Vecchia griglia per la Generazione successiva                                                        
-    console.log('grid DOPO structuredClone', grid);                                          // £
+    //console.log('grid DOPO structuredClone', grid);                                          // £
     renderThisGrid(nextGrid);
     //Aggiorno nel DOM la successiva generazione
 }  
@@ -183,13 +194,13 @@ raggiungere l'ULTIMA colonna o riga.
 
 // Flusso di Esecuzione
 
-console.log('ciao per prima cosa');
-console.log('dopo ciao', grid);
+//console.log('ciao per prima cosa');
+//console.log('dopo ciao', grid);
 
 setupRandom();   // dentro a setupRandom, la griglia effettivamente viene renderizzata giusta
 
 console.log('execute setupRandom');
-console.log(grid);  // qui mostra già un'altra griglia
+//console.log(grid);  // qui mostra già un'altra griglia
 
 //renderGrid(grid);  messa poi dentro a setupRandom
 
@@ -199,9 +210,9 @@ console.log(grid);  // qui mostra già un'altra griglia
 Inoltre, dopo qualche modifica da cui non riesco a far ritorno, non modifica nemmeno la nextGrid,
 ristampandola uguale a grid (quella sbagliata). */
 
-console.log('execute nextGen');
-console.log('old grid alla fine:', grid);
-console.log('nextGrid alla fine:', nextGrid);
+//console.log('execute nextGen');
+//console.log('old grid alla fine:', grid);
+//console.log('nextGrid alla fine:', nextGrid);
 
 
 // La cosa che fa più ridere, è che in tutte le griglie, giuste o sbagliate, all'inizio o
@@ -221,7 +232,7 @@ console.log('nextGrid alla fine:', nextGrid);
 
 //GO
 btnGo.addEventListener('click',function() {
-    flux = setInterval(nextGen, 333);
+    flux = setInterval(nextGen, 200);
 });
 
 //STOP
