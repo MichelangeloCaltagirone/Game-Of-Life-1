@@ -214,3 +214,34 @@ btnGo.addEventListener('click',function() {
 btnStop.addEventListener('click', function() {
     clearInterval(flux);
 })
+
+
+
+
+/*
+
+!     ! Avvertenze di Utilizzo !
+ 
+!     NON cliccare 2 volte consecutive il tasto GO! MAI
+
+!     SEMPRE cliccare i 2 tasti GO! and STOP alternandoli -->
+
+?     How to resize the Game Field ?
+
+TODO First, choose a number of desired rows and columns.
+
+* Set the same rows and cols variables in the script.js file with the chosen value (they are found practically at the beginning of the file,
+* under the DOM elements, in the 'Variables Notes' section).
+
+TODO Last necessary steps: choose the dimensions of each cell.
+
+* In the style.css file set the width and height of the <li> elements inside #gameContainer (advice: use equal values ​​to obtain a square.
+* e.g width=20px and height =20px).
+
+* Last thing:
+* Set the width of .axis, always in the style.css file, by multiplying the width value of the single cell by the chosen number of columns.
+* e.g. width cell=20px and number of columns=80, then .axis width= 20 * 80 = 1600px.
+
+!  (WARNING: set values ​​that are properly contained in the screen size once on the page)  !
+
+*/

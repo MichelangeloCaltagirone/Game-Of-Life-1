@@ -15,6 +15,7 @@ Qualsiasi cella viva con più di tre celle vive adiacenti muore, come per effett
 
 Qualsiasi cella morta con esattamente tre celle vive adiacenti diventa una cella viva, come per effetto di riproduzione.
 
+IMPORTANT! For instruction on how modify the dimensions of the grid, see comments in scrip.js file
 
 <!-- ! Avvertenze di Utilizzo !
  
