@@ -2,7 +2,7 @@
     !! DISCLAIMER !!
 
 Le uniche cose che non abbiamo affrontato a lezione sono gli Array,
-e la creazione e utilizzo di funzioni, se non sbaglio.
+e la creazione e utilizzo di funzioni, più qualche metodo, se non sbaglio.
 
 La griglia è stata fatta con degli array, uno tanti quante sono le righe, e ogniuno è un array di
 elementi (numeri nel nostro caso, che andremo a pescare tramite indici).
@@ -30,6 +30,7 @@ const cols = 80;        // was 20
 let arrRes = cols;      // chiamata risoluzione, indica il numero di elementi in ogni array
 let gridRes = rows;     // chiamata risoluzione, indica il numero di array che compongono la griglia
 let flux;
+let running = false;
 
 
 // Funzioni
@@ -52,7 +53,7 @@ function setupRandom() {                               // Riempio griglia con ze
         grid[i] = row;
         //console.log('valori', row);   // £
     }
-    renderGrid();
+    renderThisGrid();
     console.log('griglia con:', rows,' righe, e:', cols, ' colonne');
     console.log(grid);   
 }
@@ -207,12 +208,17 @@ console.log('execute setupRandom');
 
 //GO
 btnGo.addEventListener('click',function() {
-    flux = setInterval(nextGen, 200);
+    if(!running) {
+        flux = setInterval(nextGen, 200);
+        running = true;    
+    }
+    
 });
 
 //STOP
 btnStop.addEventListener('click', function() {
     clearInterval(flux);
+    running = false;
 })
 
 
@@ -220,11 +226,6 @@ btnStop.addEventListener('click', function() {
 
 /*
 
-!     ! Avvertenze di Utilizzo !
- 
-!     NON cliccare 2 volte consecutive il tasto GO! MAI
-
-!     SEMPRE cliccare i 2 tasti GO! and STOP alternandoli -->
 
 ?     How to resize the Game Field ?
 
